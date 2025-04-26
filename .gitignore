@@ -1,0 +1,7 @@
+#ignore any keys
+id_rsa
+id_rsa.pem
+*.key
+*.pem
+.ssh/
+
