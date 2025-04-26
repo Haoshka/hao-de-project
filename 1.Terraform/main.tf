@@ -31,7 +31,7 @@ resource "google_storage_bucket" "hao-project-bucket" {
 
 
 
-resource "google_bigquery_dataset" "hao-project-dataset" {
+resource "google_bigquery_dataset" "hao_project_dataset" {
   dataset_id = var.bq_dataset_name
   location   = var.location
 }
