@@ -1,0 +1,46 @@
+import argparse
+import requests
+import pandas as pd
+from pyspark.sql import SparkSession
+
+def main(output_table):
+    # Start Spark Session
+    spark = SparkSession.builder \
+        .appName("CoinGeckoAPI") \
+        .getOrCreate()
+
+    spark.conf.set('temporaryGcsBucket', 'dataproc-temp-europe-west1-743919083246-envojs0w')
+
+    # Step 1: Fetch the JSON data
+    url = "https://api.coingecko.com/api/v3/coins/solana/ohlc?vs_currency=usd&days=30"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+    else:
+        raise Exception(f"Error fetching data: {response.status_code}")
+
+    # Step 2: Convert JSON to Pandas DataFrame
+    columns = ["timestamp", "open", "high", "low", "close"]
+    df = pd.DataFrame(data, columns=columns)
+    df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
+
+    # Step 3: Create Spark DataFrame from Pandas DataFrame
+    spark_df = spark.createDataFrame(df)
+
+    # Step 4: Write Spark DataFrame directly into BigQuery
+    spark_df.write.format('bigquery') \
+        .option('table', output_table) \
+        .option('writeMethod', 'direct') \
+        .mode('overwrite') \
+        .save()
+
+    print(f"Data written successfully to BigQuery table: {output_table}")
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Fetch Solana OHLC and save to BigQuery.")
+    parser.add_argument('--output', required=True, help='BigQuery destination table in format `project.dataset.table`')
+
+    args = parser.parse_args()
+
+    main(args.output)
