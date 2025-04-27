@@ -1,6 +1,8 @@
-# hao-de-project
-Hao's project for data engineering zoomcamp 2025
+## dbt Workflow Overview
 
+The dbt workflow for this project is designed to transform raw Solana OHLC data into enriched and aggregated datasets for analysis. Below is an overview of the workflow:
+
+1. **folder structure**:
 my_solana_dbt_project/
 ├── dbt_project.yml
 ├── README.md
@@ -16,7 +18,24 @@ my_solana_dbt_project/
 ├── snapshots/
 ├── seeds/
 
-documentation generated https://vj048.us1.dbt.com/accounts/70471823456921/develop/70471823762484/docs/index.html#!/overview?g_v=1
+2. **Staging Models**:
+   - The `stg_ohlc.sql` model cleans and standardizes the raw OHLC data fetched from the CoinGecko API.
+   - The `schema.yaml` file defines metadata and tests to ensure data quality.
 
-dbt job with cron job created to run on every Monday at 6am to sync with the data source
-dbt CI job also created to enable CI with every PR
+3. **Core Models**:
+   - The `ohlc_enriched.sql` model enriches the OHLC data by adding calculated attributes such as moving averages or percentage changes.
+   - The `ohlc_daily.sql` model aggregates the OHLC data into daily values for easier analysis.
+   - The `schema.yaml` file defines metadata and tests for the core models.
+
+4. **Documentation**:
+   - Documentation for the dbt models is automatically generated and can be accessed [here](https://vj048.us1.dbt.com/accounts/70471823456921/develop/70471823762484/docs/index.html#!/overview?g_v=1). (only accessible via dbt cloud)
+
+5. **Automation**:
+   - A dbt job is scheduled to run every Monday at 6 AM using a cron job to sync with the data source.
+   - A dbt CI job is also configured to run on every pull request, ensuring that changes to the models are tested before merging.
+
+## Notes
+- Ensure that all required dependencies and configurations are set up before running the dbt workflow.
+- Use the `dbt run` command to execute the models and transform the data.
+
+This structure and workflow ensure that the Solana OHLC data is clean, enriched, and ready for analysis in a timely and automated manner.
