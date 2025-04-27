@@ -1,0 +1,27 @@
+id: pyspark-monthly-job
+namespace: hao-de-project
+
+pluginDefaults:
+  - type: io.kestra.plugin.gcp
+    values:
+      serviceAccount: "{{kv('GCP_CREDS')}}"
+      projectId: "{{kv('GCP_PROJECT_ID')}}"
+      location: "{{kv('GCP_LOCATION')}}"
+      bucket: "{{kv('GCP_BUCKET_NAME')}}"
+
+tasks:
+  # submit my pspark job to Dataproc cluster to run get_SOL-data script to retrieve sol price data
+  - id: submit-pyspark-job
+    type: io.kestra.plugin.gcp.dataproc.SubmitJob
+    clusterName: your-dataproc-cluster-name
+    job:
+      pysparkJob:
+        mainPythonFileUri: gs://{{kv('GCP_BUCKET_NAME')}}/code/spark_bigquery.py
+        args:
+          --output=hao-de-project.hao_de_project_dataset.test_data
+
+triggers:
+  - id: monthly-schedule
+    type: io.kestra.plugin.core.trigger.Schedule
+    cron: "0 0 1 * *" # every 1st of the month at 00:00 to get last month data
+    timezone: "UTC"
