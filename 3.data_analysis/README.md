@@ -33,7 +33,7 @@ my_solana_dbt_project/
    - Documentation for the dbt models is automatically generated and can be accessed [here](https://vj048.us1.dbt.com/accounts/70471823456921/develop/70471823762484/docs/index.html#!/overview?g_v=1). (only accessible via dbt cloud)
 
 5. **Automation**:
-   - A dbt job is scheduled to run every Monday at 6 AM using a cron job to sync with the data source.
+   - A dbt job is scheduled to run every Month on the first day using a cron job to sync with the data source. Moreover, it makes sure the staging data is deployed to the PROD tables.
    - A dbt CI job is also configured to run on every pull request, ensuring that changes to the models are tested before merging.
 
 ## Notes

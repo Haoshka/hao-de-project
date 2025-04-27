@@ -23,12 +23,16 @@ The `3.data_transform_dbt/` directory contains dbt configurations and models for
   - `schema.yml`: Defines metadata and tests for the staging model.
 - **Core Models**:
   - `ohlc_enriched.sql`: Enriches the OHLC data with additional calculated attributes.
-  - `ohlc_daily.sql`: Aggregates the data into daily OHLC values.
+  - `ohlc_daily.sql`: Aggregates the data into daily OHLC values. (of course, this data can be also directly fetch with the CoinGecko API but we are doing this for the practice!)
   - `schema.yml`: Defines metadata and tests for the core models.
 - **`dbt_project.yml`**: Configures the dbt project.
 - **`packages.yml`**: Includes the `dbt_utils` package for additional functionality.
 - Use `README.md` under the directory for further info.
 - **Looker Stduio Dashboard**: the transformed datasets are perodically deployed to the prod directory in BigQuery which are then used to create SOL price dashbaord with [Google Looker Studio](https://lookerstudio.google.com/reporting/227ebf49-b651-44dc-b34b-099cd3abac20).    
+- **Data Lineage**:
+<p align="center">
+  <img width="100%" src="images/dbt-dag-hao-project.png" alt="data lineage graphic">
+</p>
 
 ### 4. Workflow Automation with Kestra
 The `4.workflow_kestra/` directory contains a Kestra workflow (`job_submit.yaml`) that:
