@@ -5,16 +5,23 @@ Started the project near the end of April after knowing there will be another pr
 The original thoughts of the project were to leverge Kestra to build a E2E data pipeline with fully automated workflows. However, after some playing-around, I realize that the Kestra local version does not support many functions suggested by the ChatGPT whilst the cloud version would require paid license. Therefore, I have to pivot the whole project by using Pyspark whilst just running a simply workflow from my local machine. This consumed lots of time and efforts but hey, this is how the real world scenario looks like, isn't it.
 
 
-### 1. Terraform
+### 1. Problem Description (below my own words, no ChatGPT!)
+- Solana (SOL) is a popular cryptocurrency which is traded widely in the world. 
+- However, there is very limited possibility to track its price (which is not true, but let's assume this is our problem) and visualize its price action. 
+- This project is aimed to leverage open API (CoinGecko) to retrieve raw price data (OHLC) of Solana and then transform it in a way so that it can be used analytically.
+- Finally by leveraging Google Looker Studio, result is presentd in a dashboard so that we can easily track the SOL price action in the last 30 days whilst checking its bullish/bearish momentum.
+
+### 2. Terraform (cloud resources provision)
 The Terraform scripts in the `1.Terraform/` directory are used to provision the necessary Google Cloud resources:
 - **`main.tf`**: Defines resources such as a GCS bucket and a BigQuery dataset.
 - **`variables.tf`**: Contains configurable variables for the project, such as project name, region, and dataset name.
 
-### 2. Spark Data Retrieval
+### 3. Spark Data Retrieval (data ingestion per batch into DWH)
 The `2.get_data_spark/` directory contains a Python script (`get_SOL_data`) that:
 - Fetch Solana price via CoinGecko Rest API (https://api.coingecko.com/api/v3/coins/solana/ohlc?vs_currency=usd&days=30) as row data - 30 days OHLC (open, high, low, close) price data with 4 hour intervals. 
 - Converts the data into a Pandas DataFrame and then a Spark DataFrame.
-- Writes the data directly to a BigQuery table.
+- Writes the data directly to BigQuery tables (data warehouse) via submit job with Dataproc.
+- partitioning the raw data (BigQeury table) per day (timestamp)
 
 ### 3. dbt Data Transformation and Looker Studio Dashboarding 
 The `3.data_transform_dbt/` directory contains dbt configurations and models for transforming the raw Solana OHLC data:
@@ -52,7 +59,7 @@ The `4.workflow_kestra/` directory contains a Kestra workflow (`job_submit.yaml`
    - leverage Google Looker Studio to connect BigQuery and create visualization to make the SOl price anaylstic data visible to end users
  
 
-## How to Run the Project manually to validate its content
+## How to Run the Project (Reproducing the codes)
 
 ### Prerequisites
 - Google Cloud account with BigQuery, GCS, Compute Engine (VM) and Dataproc enabled.
