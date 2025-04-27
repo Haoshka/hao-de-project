@@ -1,9 +1,11 @@
 
-### Foreword
+## Foreword
 Thanks Data Engineering Zoomcamp and its community for providing this learning opporunity! 
 Started the project near the end of April after knowing there will be another project submission opportunity, therefore have to keep the scope lean and simple in order to meet the deadline.
 The original thoughts of the project were to leverge Kestra to build a E2E data pipeline with fully automated workflows. However, after some playing-around, I realize that the Kestra local version does not support many functions suggested by the ChatGPT whilst the cloud version would require paid license. Therefore, I have to pivot the whole project by using Pyspark whilst just running a simply workflow from my local machine. This consumed lots of time and efforts but hey, this is how the real world scenario looks like, isn't it.
 
+
+## Project Overiew
 
 ### 1. Problem Description (below my own words, no ChatGPT!)
 - Solana (SOL) is a popular cryptocurrency which is traded widely in the world. 
@@ -59,10 +61,10 @@ The `4.workflow_kestra/` directory contains a Kestra workflow (`job_submit.yaml`
    - leverage Google Looker Studio to connect BigQuery and create visualization to make the SOl price anaylstic data visible to end users
  
 
-## How to Run the Project (Reproducing the codes)
+## How to Run the Project (Reproducing the Codes)
 
 ### Prerequisites
-- Google Cloud account with BigQuery, GCS, Compute Engine (VM) and Dataproc enabled.
+- Google Cloud account with BigQuery, GCS, Compute Engine (VM) and Dataproc Cluster enabled.
 - Terraform (runs on Docker/Docker-Compose) installed to the VM.
 - Python and Spark environment (incl Java) set up.
 - dbt installed with the required dependencies - this project runs on dbt cloud and connected with the BigQuery.
@@ -82,6 +84,9 @@ The `4.workflow_kestra/` directory contains a Kestra workflow (`job_submit.yaml`
      python 2.get_data_spark/get_SOL_data --output=<project.dataset.table>
      ```
      In reality, submit job is used in Dataproc with argument provided to execute the python (PySpark) script. 
+<p align="center">
+    <img width="100%" src="images/Pyspark_Job.JPG" alt="Pyspark Job screenshot">
+</p>
 
 3. **Transform Data**:
    - Run dbt to transform the data (using dbt cloud):
@@ -94,3 +99,9 @@ The `4.workflow_kestra/` directory contains a Kestra workflow (`job_submit.yaml`
 
 5. **Data Visualization**:
    - Visit the public dashboard made by Looker Studio: https://lookerstudio.google.com/reporting/227ebf49-b651-44dc-b34b-099cd3abac20/page/tDQIF
+
+<p align="center">
+  <img width="100%" src="images/Dashboard Screenshot.JPG" alt="dashboard screenshot">
+</p>
+
+Thank YOU and feel free to connect with me via [LinkedIn](https://www.linkedin.com/in/hao-zheng-1b9aa098/)
