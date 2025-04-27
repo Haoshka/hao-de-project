@@ -7,11 +7,13 @@ The original thoughts of the project were to leverge Kestra to build a E2E data 
 ## Project Overiew
 
 ### 0. Repo Structure
+```
 📂 1.Terraform/        - Cloud resource provisioning
 📂 2.get_data_spark/   - Fetch and ingest SOL price data
 📂 3.data_analysis/    - dbt transformation models
 📂 4.workflow_kestra/  - (planned) Workflow orchestration
 📂 images/             - images used in README
+```
 
 ### 1. Problem Description (below my own words, no ChatGPT!)
 - Solana (SOL) is a popular cryptocurrency which is traded widely in the world. 
