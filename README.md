@@ -59,21 +59,21 @@ The `4.workflow_kestra/` directory contains a Kestra workflow (`job_submit.yaml`
 
 ### Steps
 1. **Provision Resources**:
-   - Use Terraform (IaC) to create the necessary GCP resources:
+   - Use Terraform (IaC) to create the necessary GCP resources (run .tf in the VM):
      ```bash
      cd 1.Terraform
      terraform init
      terraform apply
      ```
 2. **Fetch Data**:
-   - Run the Spark script (stored in GCS Bucket) to fetch and load data into BigQuery directory:
+   - Run the .py script (stored in GCS Bucket) to fetch and load data into BigQuery directory:
      ```bash
      python 2.get_data_spark/get_SOL_data --output=<project.dataset.table>
      ```
      In reality, submit job is used in Dataproc with argument provided to execute the python (PySpark) script. 
 
 3. **Transform Data**:
-   - Run dbt to transform the data:
+   - Run dbt to transform the data (using dbt cloud):
      ```bash
      cd 3.data_transform_dbt/hao-de-project_data
      dbt run

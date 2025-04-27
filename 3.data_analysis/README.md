@@ -3,6 +3,7 @@
 The dbt workflow for this project is designed to transform raw Solana OHLC data into enriched and aggregated datasets for analysis. Below is an overview of the workflow:
 
 1. **folder structure**:
+ ```bash
 my_solana_dbt_project/
 ├── dbt_project.yml
 ├── README.md
@@ -17,6 +18,7 @@ my_solana_dbt_project/
 ├── macros/
 ├── snapshots/
 ├── seeds/
+```
 
 2. **Staging Models**:
    - The `stg_ohlc.sql` model cleans and standardizes the raw OHLC data fetched from the CoinGecko API.
@@ -38,4 +40,4 @@ my_solana_dbt_project/
 - Ensure that all required dependencies and configurations are set up before running the dbt workflow.
 - Use the `dbt run` command to execute the models and transform the data.
 
-After transformation, the new dataset are fed to Google Looker Studio for visualization. Please visit the dashboard [here] (https://lookerstudio.google.com/reporting/227ebf49-b651-44dc-b34b-099cd3abac20)
+After transformation, the new dataset are fed to Google Looker Studio for visualization. Please visit the dashboard [here](https://lookerstudio.google.com/reporting/227ebf49-b651-44dc-b34b-099cd3abac20)
