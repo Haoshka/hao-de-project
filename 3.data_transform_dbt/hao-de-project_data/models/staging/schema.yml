@@ -1,0 +1,28 @@
+
+version: 2
+
+sources:
+  - name: staging
+    database: hao-de-project
+    schema: hao_de_project_dataset
+    tables:
+      - name: test_data
+
+
+models:
+  - name: stg_ohlc
+    description: "Staging model for Solana OHLC 4-hour raw data, standardizing data types and formatting."
+    columns:
+      - name: ts
+        description: "Timestamp of the 4-hour interval (converted from raw timestamp)"
+        #add a test feature to make sure the timestamp is not null
+        tests:
+          - not_null
+      - name: open
+        description: "Opening price, casted to FLOAT64"
+      - name: high
+        description: "Highest price in the interval, casted to FLOAT64"
+      - name: low
+        description: "Lowest price in the interval, casted to FLOAT64"
+      - name: close
+        description: "Closing price, casted to FLOAT64"
