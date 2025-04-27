@@ -30,11 +30,19 @@ my_solana_dbt_project/
    - The `schema.yaml` file defines metadata and tests for the core models.
 
 4. **Documentation**:
-   - Documentation for the dbt models is automatically generated and can be accessed [here](https://vj048.us1.dbt.com/accounts/70471823456921/develop/70471823762484/docs/index.html#!/overview?g_v=1). (only accessible via dbt cloud)
+   - Documentation for the dbt models is automatically generated thanks to properly maintained schema files.
+<p align="center">
+    <img width="100%" src="images/dbt_doc.jpg" alt="dbt documentation screenshot">
+</p>
 
 5. **Automation**:
    - A dbt job is scheduled to run every Month on the first day using a cron job to sync with the data source. Moreover, it makes sure the staging data is deployed to the PROD tables.
    - A dbt CI job is also configured to run on every pull request, ensuring that changes to the models are tested before merging.
+
+<p align="center">
+    <img width="100%" src="images/dbt_cloud_job.jpg" alt="dbt cloud job screenshot">
+</p>
+
 
 ## Notes
 - Ensure that all required dependencies and configurations are set up before running the dbt workflow.

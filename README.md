@@ -84,8 +84,9 @@ The `4.workflow_kestra/` directory contains a Kestra workflow (`job_submit.yaml`
      python 2.get_data_spark/get_SOL_data --output=<project.dataset.table>
      ```
      In reality, submit job is used in Dataproc with argument provided to execute the python (PySpark) script. 
+
 <p align="center">
-    <img width="100%" src="images/Pyspark_Job.JPG" alt="Pyspark Job screenshot">
+    <img width="75%" src="images/Pyspark_Job.JPG" alt="Pyspark Job screenshot">
 </p>
 
 3. **Transform Data**:
